@@ -18,12 +18,39 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
     let btn_popup = document.querySelector("#popup");
+    let number = document.querySelector("#size");
     btn_popup.addEventListener("click", function(){
         let size = getSize();
         createBox(size);
+        number.textContent = size;
     });
 
     console.log("hi");
+
+
+
+
+    // Get references to the button and color input elements
+    const chooseColorButton = document.querySelector("#chooseColorButton");
+    const colorPicker = document.querySelector("#colorPicker");
+    const colorDisplay = document.querySelector("#colorDisplay");
+
+    // Add a click event listener to the button
+    chooseColorButton.addEventListener('click', () => {
+        // Show the color input element
+        colorPicker.style.display = 'block';
+
+        colorPicker.addEventListener('input', () => {
+        const selectedColor = colorPicker.value;
+        colorDisplay.textContent = `Selected Color: ${selectedColor}`;
+        colorPicker.style.display = 'none';
+        color = selectedColor;
+        });
+    });
+
+    
+
+
 });
 
 function createBox(size){
@@ -60,13 +87,14 @@ function colorDiv(){
         if (color== 'random'){
             this.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`
         }else {
-            this.style.backgroundColor = 'black';
+            this.style.backgroundColor = color;
         }
     }   
 }
 
 function setColor(colorChoice){
     color = colorChoice;
+    colorDisplay.textContent = `Selected Color: random`;
 }
 function resetBox(){
     let divs = document.querySelectorAll('div');
@@ -74,3 +102,4 @@ function resetBox(){
     draw.innerHTML = "Click anywhere to enable drawing";
     click = false;
 }
+
